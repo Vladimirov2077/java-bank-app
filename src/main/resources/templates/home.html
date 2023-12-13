@@ -3,79 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <style>
-        body {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            font-family: 'Arial', sans-serif;
-            margin: 40px;
-        }
-
-        h1, h2 {
-            color: #ffcc00;
-        }
-
-        a {
-            color: #4da6ff;
-            text-decoration: none;
-            margin-right: 5px;
-        }
-
-        a.button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4da6ff;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        a.button:hover {
-            background-color: #005bb5;
-        }
-
-        label {
-            color: #ffffff;
-            margin-right: 5px;
-        }
-
-        input, select {
-            padding: 5px;
-            margin-bottom: 10px;
-            background-color: #333333;
-            color: #ffffff;
-            border: 1px solid #4da6ff;
-        }
-
-        button {
-            padding: 8px;
-            background-color: #4da6ff;
-            color: #ffffff;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #005bb5;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
-
-
-    </style>
 </head>
 <body>
 <h1>Welcome to Java Bank App</h1>
 
 <h2>Choose an action:</h2>
 
-<a th:href="@{/api/customers/all}" class="button">View Customer List</a><br>
-
-
-<a th:href="@{/api/accounts/all}" class="button">View Account List</a><br>
+<a th:href="@{/api/customers/all}">View Customer List</a><br>
+<a th:href="@{/api/accounts/all}">View Account List</a><br>
 
 <h2>Customer Operations:</h2>
 
@@ -95,9 +30,10 @@
 </form>
 
 
+
 <!-- Update Customer Form -->
 <h2>Update Customer:</h2>
-<form action="/api/customers/update" method="post">
+<form th:action="@{/api/customers/update}" method="put">
     <label for="updateCustomerId">Customer ID:</label>
     <input type="number" id="updateCustomerId" name="id" required><br>
 
@@ -115,14 +51,12 @@
 
 <!-- Delete Customer Form -->
 <h2>Delete Customer:</h2>
-<form action="/api/customers/delete" method="post">
-    <input type="hidden" name="_method" value="DELETE">
+<form th:action="@{/api/customers/delete}" method="delete">
     <label for="deleteCustomerId">Customer ID:</label>
     <input type="number" id="deleteCustomerId" name="id" required><br>
 
     <button type="submit">Delete Customer</button>
 </form>
-
 
 <h2>Account Operations:</h2>
 
@@ -147,7 +81,7 @@
 
 <!-- Форма для просмотра аккаунта по ID -->
 <h2>View Account by ID:</h2>
-<form th:action="@{/api/accounts/{id}}" method="get">
+<form th:action="@{/api/accounts/}" method="get">
     <label for="accountId">Account ID:</label>
     <input type="number" id="accountId" name="id" required><br>
 
@@ -157,7 +91,7 @@
 
 <!-- Форма для удаления аккаунта по ID -->
 <h2>Delete Account:</h2>
-<form th:action="@{/api/accounts/delete}" method="post">
+<form th:action="@{/api/accounts/delete}" method="delete">
     <label for="deleteAccountId">Account ID:</label>
     <input type="number" id="deleteAccountId" name="id" required><br>
 
@@ -205,6 +139,7 @@
 
     <button type="submit">Transfer</button>
 </form>
+
 
 </body>
 </html>

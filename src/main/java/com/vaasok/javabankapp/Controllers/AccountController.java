@@ -23,21 +23,11 @@ public class AccountController {
     }
 
     @PostMapping("/create")
-    public Object createAccount(@RequestParam String currency, @RequestParam Long customerId) {
-
-        if (customerService.getCustomerById(customerId) == null) {
-            return "Customer with id " + customerId + " does not exist";
-        }
-
-        Currency currency1 = Currency.valueOf(currency);
+    public Account createAccount(@RequestParam Currency currency, @RequestParam Long customerId) {
 
         Customer customer = customerService.getCustomerById(customerId);
 
-        Account account = accountService.createAccount(currency1, customer);
-
-        customerService.addAccountToCustomer(customer.getId(), account);
-
-        return account;
+        return accountService.createAccount(currency, customer);
     }
 
     @GetMapping("/all")
@@ -46,38 +36,18 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public Object getAccountById(@RequestParam Long id) {
-
-        Account account = accountService.getAccountById(id);
-
-        if (account == null) {
-            return "Account with id " + id + " does not exist";
-        }
-
-        return account;
+    public Account getAccountById(@PathVariable Long id) {
+        return accountService.getAccountById(id);
     }
 
-
-    @PostMapping("/delete")
-    public String deleteAccount(@RequestParam Long id) {
-        boolean success = accountService.deleteAccountById(id);
-
-        if (success) {
-            return "Account with ID " + id + " was deleted";
-        } else {
-            return "Account with ID " + id + " was not deleted";
-        }
+    @DeleteMapping("/delete/{id}")
+    public boolean deleteAccount(@PathVariable Long id) {
+        return accountService.deleteAccountById(id);
     }
-
 
     @PostMapping("/deposit")
-    public String deposit(@RequestParam Long accountId, @RequestParam Double amount) {
-        if (accountService.deposit(accountId, amount)) {
-            return "Deposit successful";
-        } else {
-            return "Deposit failed";
-        }
-
+    public void deposit(@RequestParam Long accountId, @RequestParam Double amount) {
+        accountService.deposit(accountId, amount);
     }
 
     @PostMapping("/withdraw")

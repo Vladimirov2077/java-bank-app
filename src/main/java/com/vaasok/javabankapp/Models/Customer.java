@@ -1,15 +1,7 @@
 package com.vaasok.javabankapp.Models;
 
+import java.util.*;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.vaasok.javabankapp.Utils.CustomerSerializer;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-
-@JsonSerialize(using = CustomerSerializer.class)
 public class Customer {
     private Long id;
     private String name;
@@ -18,7 +10,7 @@ public class Customer {
     private List<Account> accounts;
 
     public Customer(String name, String email, Integer age) {
-        this.id = UUID.randomUUID().getMostSignificantBits() & Integer.MAX_VALUE;
+        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         this.name = name;
         this.email = email;
         this.age = age;
@@ -65,10 +57,6 @@ public class Customer {
         accounts.add(account);
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,9 +88,7 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
-                ", accountCount=" + accounts.size() +
+                ", accounts=" + accounts +
                 '}';
     }
-
-
 }

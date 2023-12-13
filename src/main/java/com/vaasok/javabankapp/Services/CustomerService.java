@@ -34,33 +34,11 @@ public class CustomerService {
         return customerDao.deleteById(id);
     }
 
-    public Customer updateCustomer(Long id, String name, String email, Integer age) {
-
-        if (customerDao.findById(id) == null) {
-            return null;
-        }
-
+    public void updateCustomer(Long id, String name, String email, Integer age) {
         Customer customer = customerDao.findById(id);
         customer.setName(name);
         customer.setEmail(email);
         customer.setAge(age);
         customerDao.save(customer);
-
-        return customer;
-
     }
-
-    public Customer addAccountToCustomer(Long customerId, Account account) {
-
-        if (customerDao.findById(customerId) == null) {
-            return null;
-        }
-
-        Customer customer = customerDao.findById(customerId);
-        customer.addAccount(account);
-        customerDao.save(customer);
-        return customer;
-    }
-
-
 }

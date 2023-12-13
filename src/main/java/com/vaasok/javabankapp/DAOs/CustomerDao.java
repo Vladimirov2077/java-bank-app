@@ -9,22 +9,10 @@ import java.util.List;
 @Repository
 public class CustomerDao implements DaoI<Customer> {
     private List<Customer> customers = new ArrayList<>();
-    private Long id = 0L;
 
     @Override
     public Customer save(Customer obj) {
-        Customer existingCustomer = findById(obj.getId());
-
-        if (existingCustomer == null) {
-            obj.setId(++id);
-            customers.add(obj);
-        } else {
-            existingCustomer.setName(obj.getName());
-            existingCustomer.setEmail(obj.getEmail());
-            existingCustomer.setAge(obj.getAge());
-            existingCustomer.setAccounts(obj.getAccounts());
-        }
-
+        customers.add(obj);
         return obj;
     }
 
@@ -49,12 +37,12 @@ public class CustomerDao implements DaoI<Customer> {
     }
 
     @Override
-    public boolean deleteById(Long id) {
+    public boolean deleteById(long id) {
         return customers.removeIf(customer -> customer.getId().equals(id));
     }
 
     @Override
-    public Customer findById(Long id) {
+    public Customer findById(long id) {
         return customers.stream()
                 .filter(customer -> customer.getId().equals(id))
                 .findFirst()

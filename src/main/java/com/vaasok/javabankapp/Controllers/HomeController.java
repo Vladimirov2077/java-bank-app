@@ -4,13 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping
     public String home() {
-        return "home.html";
+        return "home.html"; // Здесь "index" - это имя вашего шаблона FreeMarker (например, index.html).
     }
 
 }
-
