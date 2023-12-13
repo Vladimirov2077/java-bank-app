@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Welcome to Java Bank App</h1>
+
+<h2>Choose an action:</h2>
+
+<a th:href="@{/api/customers/all}">View Customer List</a><br>
+<a th:href="@{/api/accounts/all}">View Account List</a><br>
+
+<h2>Customer Operations:</h2>
+
+<!-- Форма создания клиента и выбора валюты -->
+<h2>Create Customer:</h2>
+<form th:action="@{/api/customers/create}" method="post">
+    <label for="customerName">Name:</label>
+    <input type="text" id="customerName" name="name" required><br>
+
+    <label for="customerEmail">Email:</label>
+    <input type="email" id="customerEmail" name="email" required><br>
+
+    <label for="customerAge">Age:</label>
+    <input type="number" id="customerAge" name="age" required><br>
+
+    <button type="submit">Create Customer</button>
+</form>
+
+
+
+<!-- Update Customer Form -->
+<h2>Update Customer:</h2>
+<form th:action="@{/api/customers/update}" method="put">
+    <label for="updateCustomerId">Customer ID:</label>
+    <input type="number" id="updateCustomerId" name="id" required><br>
+
+    <label for="updateCustomerName">Name:</label>
+    <input type="text" id="updateCustomerName" name="name" required><br>
+
+    <label for="updateCustomerEmail">Email:</label>
+    <input type="email" id="updateCustomerEmail" name="email" required><br>
+
+    <label for="updateCustomerAge">Age:</label>
+    <input type="number" id="updateCustomerAge" name="age" required><br>
+
+    <button type="submit">Update Customer</button>
+</form>
+
+<!-- Delete Customer Form -->
+<h2>Delete Customer:</h2>
+<form th:action="@{/api/customers/delete}" method="delete">
+    <label for="deleteCustomerId">Customer ID:</label>
+    <input type="number" id="deleteCustomerId" name="id" required><br>
+
+    <button type="submit">Delete Customer</button>
+</form>
+
+<h2>Account Operations:</h2>
+
+<!-- Форма создания аккаунта с выпадающим списком для валюты -->
+<h2>Create Account:</h2>
+<form th:action="@{/api/accounts/create}" method="post">
+    <label for="currency">Currency:</label>
+    <select id="currency" name="currency" required>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="UAH">UAH</option>
+        <option value="CHF">CHF</option>
+        <option value="GBP">GBP</option>
+    </select><br>
+
+    <label for="customerId">Customer ID:</label>
+    <input type="number" id="customerId" name="customerId" required><br>
+
+    <button type="submit">Create Account</button>
+</form>
+
+
+<!-- Форма для просмотра аккаунта по ID -->
+<h2>View Account by ID:</h2>
+<form th:action="@{/api/accounts/}" method="get">
+    <label for="accountId">Account ID:</label>
+    <input type="number" id="accountId" name="id" required><br>
+
+    <button type="submit">View Account</button>
+</form>
+
+
+<!-- Форма для удаления аккаунта по ID -->
+<h2>Delete Account:</h2>
+<form th:action="@{/api/accounts/delete}" method="delete">
+    <label for="deleteAccountId">Account ID:</label>
+    <input type="number" id="deleteAccountId" name="id" required><br>
+
+    <button type="submit">Delete Account</button>
+</form>
+
+
+<!-- Форма для внесения депозита по ID аккаунта -->
+<h2>Deposit:</h2>
+<form th:action="@{/api/accounts/deposit}" method="post">
+    <label for="depositAccountId">Account ID:</label>
+    <input type="number" id="depositAccountId" name="accountId" required><br>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" required><br>
+
+    <button type="submit">Deposit</button>
+</form>
+
+
+<!-- Форма для вывода средств по ID аккаунта -->
+<h2>Withdraw:</h2>
+<form th:action="@{/api/accounts/withdraw}" method="post">
+    <label for="withdrawAccountId">Account ID:</label>
+    <input type="number" id="withdrawAccountId" name="accountId" required><br>
+
+    <label for="withdrawAmount">Amount:</label>
+    <input type="number" id="withdrawAmount" name="amount" required><br>
+
+    <button type="submit">Withdraw</button>
+</form>
+
+
+<!-- Форма для перевода средств между аккаунтами -->
+<h2>Transfer:</h2>
+<form th:action="@{/api/accounts/transfer}" method="post">
+    <label for="sourceAccountId">Source Account ID:</label>
+    <input type="number" id="sourceAccountId" name="sourceAccountId" required><br>
+
+    <label for="targetAccountId">Target Account ID:</label>
+    <input type="number" id="targetAccountId" name="targetAccountId" required><br>
+
+    <label for="transferAmount">Amount:</label>
+    <input type="number" id="transferAmount" name="amount" required><br>
+
+    <button type="submit">Transfer</button>
+</form>
+
+
+</body>
+</html>
