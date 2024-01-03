@@ -23,9 +23,9 @@ public class CustomerDaoTest {
     public void findAllTest() {
         Assertions.assertTrue(customerDao.findAll().isEmpty());
 
-        customerDao.save(Mockito.mock(Customer.class));
-        customerDao.save(Mockito.mock(Customer.class));
-        customerDao.save(Mockito.mock(Customer.class));
+        customerDao.save(new Customer("TestName", "TestEmail", 20));
+        customerDao.save(new Customer("TestName", "TestEmail", 20));
+        customerDao.save(new Customer("TestName", "TestEmail", 20));
 
         Assertions.assertTrue(customerDao.findAll().size() == 3);
 

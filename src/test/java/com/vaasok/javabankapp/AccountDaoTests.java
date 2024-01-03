@@ -2,6 +2,8 @@ package com.vaasok.javabankapp;
 
 import com.vaasok.javabankapp.DAOs.AccountDao;
 import com.vaasok.javabankapp.Models.Account;
+import com.vaasok.javabankapp.Models.Currency;
+import com.vaasok.javabankapp.Models.Customer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,9 +25,9 @@ public class AccountDaoTests {
     public void findAllTest() {
         Assertions.assertTrue(accountDao.findAll().isEmpty());
 
-        accountDao.save(Mockito.mock(Account.class));
-        accountDao.save(Mockito.mock(Account.class));
-        accountDao.save(Mockito.mock(Account.class));
+        accountDao.save(new Account(Currency.USD, Mockito.mock(Customer.class)));
+        accountDao.save(new Account(Currency.USD, Mockito.mock(Customer.class)));
+        accountDao.save(new Account(Currency.USD, Mockito.mock(Customer.class)));
 
         Assertions.assertTrue(accountDao.findAll().size() == 3);
 
@@ -61,7 +63,7 @@ public class AccountDaoTests {
     @Test
     public void deleteTest() {
         Assertions.assertTrue(accountDao.findAll().isEmpty());
-        Account account = new Account();
+        Account account = new Account(Currency.USD, Mockito.mock(Customer.class));
         accountDao.save(account);
         Assertions.assertFalse(accountDao.findAll().isEmpty());
         accountDao.delete(account);
@@ -71,11 +73,11 @@ public class AccountDaoTests {
     @Test
     public void deleteAllTest() {
         Assertions.assertTrue(accountDao.findAll().isEmpty());
-        Account account = new Account();
-        Account account1 = new Account();
-        Account account2 = new Account();
-        Account account3 = new Account();
-        Account account4 = new Account();
+        Account account = new Account(Currency.USD, Mockito.mock(Customer.class));
+        Account account1 = new Account(Currency.USD, Mockito.mock(Customer.class));
+        Account account2 = new Account(Currency.USD, Mockito.mock(Customer.class));
+        Account account3 = new Account(Currency.USD, Mockito.mock(Customer.class));
+        Account account4 = new Account(Currency.USD, Mockito.mock(Customer.class));
         List<Account> testAccounts = new ArrayList<>(List.of(account, account1, account2, account3, account4));
         accountDao.saveAll(testAccounts);
         Assertions.assertTrue(accountDao.findAll().size() == 5);
