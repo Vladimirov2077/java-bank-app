@@ -9,10 +9,21 @@ import java.util.List;
 @Repository
 public class AccountDao implements DaoI<Account> {
     private List<Account> accounts = new ArrayList<>();
+    private Long id = 0L;
 
     @Override
     public Account save(Account obj) {
-        accounts.add(obj);
+
+        Account existingAccount = findById(obj.getId());
+
+        if (existingAccount == null) {
+            obj.setId(++id);
+            accounts.add(obj);
+        } else {
+            existingAccount.setCurrency(obj.getCurrency());
+            existingAccount.setCustomer(obj.getCustomer());
+        }
+
         return obj;
     }
 
@@ -37,12 +48,17 @@ public class AccountDao implements DaoI<Account> {
     }
 
     @Override
-    public boolean deleteById(long id) {
-        return accounts.removeIf(account -> account.getId().equals(id));
+    public boolean deleteById(Long id) {
+        for (Account account : accounts) {
+            if (account.getId() == id) {
+                return accounts.remove(account);
+            }
+        }
+        return false;
     }
 
     @Override
-    public Account findById(long id) {
+    public Account findById(Long id) {
 
         for (Account account : accounts) {
             if (account.getId() == id) {

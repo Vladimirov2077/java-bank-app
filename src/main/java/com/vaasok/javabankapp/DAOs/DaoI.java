@@ -8,7 +8,7 @@ public interface DaoI<T> {
     void deleteAll(List<T> entities);
     void saveAll(List<T> entities);
     List<T> findAll();
-    boolean deleteById(long id);
-    T findById(long id);
+    boolean deleteById(Long id);
+    T findById(Long id);
 
 }
