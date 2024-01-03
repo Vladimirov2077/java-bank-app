@@ -1,7 +1,5 @@
 package com.vaasok.javabankapp.Controllers;
 
-import com.vaasok.javabankapp.Models.Account;
-import com.vaasok.javabankapp.Models.Currency;
 import com.vaasok.javabankapp.Models.Customer;
 import com.vaasok.javabankapp.Services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +32,30 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public boolean deleteCustomer(@PathVariable Long id) {
-        return customerService.deleteCustomerById(id);
+    @PostMapping("/delete")
+    public String deleteCustomer(@RequestParam Long id) {
+
+        boolean b = customerService.deleteCustomerById(id);
+
+        if (b) {
+            return "Customer with id " + id + " was deleted";
+        } else {
+            return "Customer with id " + id + " was not deleted";
+        }
+
     }
 
-    @PutMapping("/update/{id}")
-    public void updateCustomer(
-            @PathVariable Long id,
+    @PostMapping("/update")
+    public Customer updateCustomer(
+            @RequestParam Long id,
             @RequestParam String name,
             @RequestParam String email,
             @RequestParam Integer age
     ) {
-        customerService.updateCustomer(id, name, email, age);
+
+        return customerService.updateCustomer(id, name, email, age);
+
     }
+
 
 }

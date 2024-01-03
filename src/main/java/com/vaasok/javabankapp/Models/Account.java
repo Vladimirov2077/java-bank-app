@@ -1,8 +1,12 @@
 package com.vaasok.javabankapp.Models;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vaasok.javabankapp.Utils.AccountSerializer;
+
 import java.util.Objects;
 import java.util.UUID;
 
+@JsonSerialize(using = AccountSerializer.class)
 public class Account {
     private Long id;
     private String number;
@@ -11,7 +15,7 @@ public class Account {
     private Customer customer;
 
     public Account(Currency currency, Customer customer) {
-        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+        this.id = UUID.randomUUID().getMostSignificantBits() & Integer.MAX_VALUE;
         this.number = UUID.randomUUID().toString();
         this.currency = currency;
         this.customer = customer;
@@ -88,7 +92,8 @@ public class Account {
                 ", number='" + number + '\'' +
                 ", currency=" + currency +
                 ", balance=" + balance +
-                ", customer=" + customer +
+                ", customerId=" + (customer != null ? customer.getId() : null) +
                 '}';
     }
+
 }

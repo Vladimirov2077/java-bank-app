@@ -22,8 +22,6 @@ public class AccountService {
 
         Account account = new Account(currency, customer);
 
-        customer.addAccount(account);
-
         return accountDao.save(account);
 
     }
@@ -40,10 +38,14 @@ public class AccountService {
         return accountDao.deleteById(id);
     }
 
-    public void deposit(Long accountId, Double amount) {
+    public boolean deposit(Long accountId, Double amount) {
         Account account = accountDao.findById(accountId);
+        if (account == null) {
+            return false;
+        }
         account.setBalance(account.getBalance() + amount);
         accountDao.save(account);
+        return true;
     }
 
     public boolean withdraw(Long accountId, Double amount) {
