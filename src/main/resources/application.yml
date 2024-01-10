@@ -1,0 +1,73 @@
+server:
+  port: 9000 # Або 9001 для prod
+
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: false
+
+  profiles:
+    active: local
+
+  flyway:
+    enabled: true
+
+  sql:
+    init:
+      mode: never
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: false
+    show-sql: true
+    hibernate:
+      id:
+        new_generator_mappings: true
+      ddl-auto: none
+#
+#config:
+#  activate:
+#    on-profile: local
+#---
+#spring:
+#  profiles:
+#    active: prod
+#
+#  flyway:
+#    enabled: false
+#
+#  datasource:
+#    url: jdbc:postgresql://snuffleupagus.db.elephantsql.com:5432/dkirxbxg
+#    username: dkirxbxg
+#    password: Q8tls0pIc6raYw8R1R1nmIIRKwBkowXg
+#
+#  jpa:
+#    open-in-view: false
+#    defer-datasource-initialization: true
+#    hibernate:
+#      ddl-auto: none
+#    properties:
+#      hibernate:
+#        generate_statistics: false
+#    show-sql: false
+#
+#  config:
+#    activate:
+#      on-profile: prod

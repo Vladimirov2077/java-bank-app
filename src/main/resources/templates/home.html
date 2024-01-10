@@ -206,5 +206,20 @@
     <button type="submit">Transfer</button>
 </form>
 
+<!-- Другие формы и элементы интерфейса -->
+
+<!-- Displaying the list of employers -->
+<h2>Employer List:</h2>
+<ul>
+    <li th:each="employer : ${employers}">
+        <span th:text="${employer.name}"></span> - <span th:text="${employer.address}"></span>
+    </li>
+</ul>
+
+<!-- Пример формы для отправки запроса на получение списка работодателей -->
+<form th:action="@{/employers}" method="get">
+    <button type="submit">Get Employers</button>
+</form>
+
 </body>
 </html>

@@ -3,19 +3,39 @@ package com.vaasok.javabankapp.Models;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vaasok.javabankapp.Utils.AccountSerializer;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 import java.util.UUID;
 
 @JsonSerialize(using = AccountSerializer.class)
+@Entity
+@Table(name = "accounts")
 public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "number")
     private String number;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "currency")
     private Currency currency;
+
+    @Column(name = "balance")
     private Double balance = 0.0;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    public Account() {
+        // Hibernate requires a default constructor
+    }
+
     public Account(Currency currency, Customer customer) {
-        this.id = UUID.randomUUID().getMostSignificantBits() & Integer.MAX_VALUE;
         this.number = UUID.randomUUID().toString();
         this.currency = currency;
         this.customer = customer;
@@ -95,5 +115,5 @@ public class Account {
                 ", customerId=" + (customer != null ? customer.getId() : null) +
                 '}';
     }
-
 }
+
